@@ -58,10 +58,10 @@ app.post('/api/mahasiswa', (req, res) => {
 });
 
 app.put('/api/mahasiswa/:id', (req, res) => {
-  const { id } = req.params;
+  const { userid } = req.params;
   const { nama, nim, kelas, prodi } = req.body;
   db.query('UPDATE mahasiswa SET nama = ?, nim = ?, kelas = ?, prodi = ? WHERE idmahasiswa = ?',
-    [nama, nim, kelas, prodi, id], (err, result) => {
+    [nama, nim, kelas, prodi, userid], (err, result) => {
       if (err) {
         console.error('Error executing query:', err);
         res.status(500).send('Error updating data');
