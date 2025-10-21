@@ -70,3 +70,15 @@ app.put('/api/mahasiswa/:id', (req, res) => {
       res.send('Data updated successfully');
     });
 });
+
+app.delete('/api/mahasiswa/:id', (req, res) => {
+  const { userid } = req.params;
+  db.query('DELETE FROM mahasiswa WHERE idmahasiswa = ?', [userid], (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      res.status(500).send('Error deleting data');
+      return;
+    }
+    res.send('Data deleted successfully');
+  });
+});
