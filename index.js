@@ -39,3 +39,20 @@ app.get('/api/mahasiswa', (req, res) => {
     res.json(results);
   });
 });
+
+app.post('/api/mahasiswa', (req, res) => {
+  const { nama, nim, kelas, prodi } = req.body;
+  if (!nama || !nim || !kelas || !prodi) {
+    return res.status(400).send( { message: 'nama, nim, kelas, and prodi are required' } );
+  }
+
+  db.query('INSERT INTO mahasiswa (nama, nim, kelas, prodi) VALUES (?, ?, ?, ?)', [nama, nim, kelas, prodi], 
+    (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      res.status(500).send('Error inserting data');
+      return;
+    }
+    res.status(201).send('Data inserted successfully');
+  });
+});
